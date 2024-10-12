@@ -1,5 +1,5 @@
 ### 5x5 Codes Generator
-there are two method to grant codes i personally use python method but you can use website or rust code or java code.
+there are two method to grant codes i personally use python method but you can use website or other computer language codes.
 - [Code Generator Website](https://notaganesh.github.io/5x5-code-generator/)
 
 
