@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>5x5 Code Generator</title>
+    <link href="https://fonts.googleapis.com/css2?family=Afacad&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Afacad', sans-serif;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background: #f0f0f0;
+            margin: 0;
+            transition: background 0.3s, color 0.3s;
+        }
+        body.dark-mode {
+            background: #333;
+            color: #fff;
+        }
+        h1 {
+            margin-bottom: 20px;
+            font-size: 2em;
+            color: #333;
+        }
+        .dark-mode h1 {
+            color: #fff;
+        }
+        .container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            justify-content: center;
+        }
+        .code-box {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            padding: 20px;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .code {
+            font-size: 1.2em;
+            margin-bottom: 10px;
+        }
+        .copy-btn, .generate-btn {
+            padding: 10px 20px;
+            border: none;
+            background: rgba(255, 255, 255, 0.1);
+            color: #007bff;
+            border-radius: 10px;
+            cursor: pointer;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: background 0.3s, color 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin: 10px;
+        }
+        .copy-btn:hover, .generate-btn:hover {
+            background: #007bff;
+            color: white;
+        }
+        .dark-mode .copy-btn, .dark-mode .generate-btn {
+            color: #fff;
+            background: rgba(0, 0, 0, 0.1);
+        }
+        .generate-btn svg, .copy-btn svg {
+            width: 20px;
+            height: 20px;
+        }
+        .theme-switch {
+            position: relative;
+            display: inline-block;
+            width: 60px;
+            height: 34px;
+            margin: 10px;
+        }
+        .theme-switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #ccc;
+            transition: .4s;
+            border-radius: 34px;
+        }
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 26px;
+            width: 26px;
+            left: 4px;
+            bottom: 4px;
+            background-color: white;
+            transition: .4s;
+            border-radius: 50%;
+        }
+        input:checked + .slider {
+            background-color: #2196F3;
+        }
+        input:checked + .slider:before {
+            transform: translateX(26px);
+        }
+    </style>
+</head>
+<body>
+    <h1>5x5 Codes Generator (Educational Purpose Only)</h1>
+    <button class="generate-btn" onclick="generateCodes()">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M12 2a10 10 0 100 20 10 10 0 000-20zm1 14.93V17a1 1 0 11-2 0v-2.07a8.001 8.001 0 01-3.95-1.57 1 1 0 111.1-1.66 6.001 6.001 0 005.7 0 1 1 0 111.1 1.66A8.001 8.001 0 0113 16.93zM7.05 9.05a1 1 0 011.41 0 6.001 6.001 0 005.08 0 1 1 0 111.41 1.41 8.001 8.001 0 01-7.9 0 1 1 0 010-1.41zM12 4a1 1 0 110 2 1 1 0 010-2z"/>
+        </svg>
+        Generate Codes
+    </button>
+    <label class="theme-switch">
+        <input type="checkbox" onclick="toggleTheme()">
+        <span class="slider"></span>
+    </label>
+    <div class="container" id="codeContainer"></div>
+
+    <script>
+        const invalidChars = ['A', 'E', 'I', 'L', 'O', 'S', 'U', '0', '1', '5'];
+        const validChars = 'BCDFGHJKLMNPQRSTVWXYZ2346789'.split('').filter(char => !invalidChars.includes(char)).join('');
+        const codeLength = 5;
+        const codeCount = 20;
+
+        // Function to generate random code with unique characters
+        function generateUniqueCode() {
+            let code = '';
+            let usedChars = new Set(); // Keep track of used characters to avoid repetition
+            while (code.length < codeLength - 1) {  // Generate 4 random characters
+                const char = validChars.charAt(Math.floor(Math.random() * validChars.length));
+                if (!usedChars.has(char)) { // Only add if character hasn't been used yet
+                    code += char;
+                    usedChars.add(char);
+                }
+            }
+            return code;
+        }
+
+        // Function to generate the last segment (XXXXZ)
+        function generateFinalCode() {
+            let code = generateUniqueCode(); // Generate 4 unique characters
+            return code + 'Z';  // Append "Z" at the end
+        }
+
+        // Function to generate all codes
+        function generateCodes() {
+            console.log('Generating codes...');
+            const container = document.getElementById('codeContainer');
+            container.innerHTML = '';
+            for (let i = 0; i < codeCount; i++) {
+                // Create code in the format XXXXX-XXXXX-XXXXX-XXXXX-XXXXZ
+                const code = `${generateUniqueCode()}-${generateUniqueCode()}-${generateUniqueCode()}-${generateUniqueCode()}-${generateFinalCode()}`;
+                const codeBox = document.createElement('div');
+                codeBox.className = 'code-box';
+                codeBox.innerHTML = `
+                    <div class="code">${code}</div>
+                    <button class="copy-btn" onclick="copyToClipboard('${code}')">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M19 2H9c-1.1 0-2 .9-2 2v14H5c-1.1 0-2 .9-2 2v2h14v-2c0-1.1-.9-2-2-2h-2V4h10v14h-2v2h4v-2c0-1.1-.9-2-2-2h-2V4c0-1.1-.9-2-2-2zm-4 16H7v-2h8v2zm0-4H7v-2h8v2zm0-4H7V8h8v2z"/>
+                        </svg>
+                        Copy
+                    </button>
+                `;
+                container.appendChild(codeBox);
+            }
+        }
+
+        function copyToClipboard(code) {
+            navigator.clipboard.writeText(code).then(() => {
+                alert('Code copied to clipboard!');
+            });
+        }
+
+        function toggleTheme() {
+            document.body.classList.toggle('dark-mode');
+        }
+
+        // Initial code generation
+        document.addEventListener('DOMContentLoaded', generateCodes);
+    </script>
+</body>
+</html>
