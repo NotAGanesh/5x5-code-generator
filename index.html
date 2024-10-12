@@ -133,39 +133,44 @@
     <div class="container" id="codeContainer"></div>
 
     <script>
-        const invalidChars = ['A', 'E', 'I', 'L', 'O', 'S', 'U', '0', '1', '5'];
-        const validChars = 'BCDFGHJKLMNPQRSTVWXYZ2346789'.split('').filter(char => !invalidChars.includes(char)).join('');
-        const codeLength = 5;
-        const codeCount = 20;
+        const allowedChars = "2346789BCDFGHJKMNPQRTVWXYZ";
+        const codeCount = 25;
 
-        // Function to generate random code with unique characters
-        function generateUniqueCode() {
-            let code = '';
-            let usedChars = new Set(); // Keep track of used characters to avoid repetition
-            while (code.length < codeLength - 1) {  // Generate 4 random characters
-                const char = validChars.charAt(Math.floor(Math.random() * validChars.length));
-                if (!usedChars.has(char)) { // Only add if character hasn't been used yet
-                    code += char;
-                    usedChars.add(char);
+        // Function to generate a single code
+        function generateSingleCode() {
+            let parts = [];
+
+            // Generate the first 4 parts (XXXXX)
+            for (let i = 0; i < 4; i++) {
+                let part = '';
+                while (part.length < 5) {
+                    const char = allowedChars.charAt(Math.floor(Math.random() * allowedChars.length));
+                    if (!part.includes(char)) {  // Ensure no repeated characters in a part
+                        part += char;
+                    }
+                }
+                parts.push(part);
+            }
+
+            // Generate the last part (XXXXZ)
+            let lastPart = '';
+            while (lastPart.length < 4) {
+                const char = allowedChars.charAt(Math.floor(Math.random() * allowedChars.length));
+                if (!lastPart.includes(char)) {
+                    lastPart += char;
                 }
             }
-            return code;
+            lastPart += 'Z';  // Append 'Z' at the end of the last part
+
+            return parts.join('-') + '-' + lastPart;
         }
 
-        // Function to generate the last segment (XXXXZ)
-        function generateFinalCode() {
-            let code = generateUniqueCode(); // Generate 4 unique characters
-            return code + 'Z';  // Append "Z" at the end
-        }
-
-        // Function to generate all codes
+        // Function to generate multiple codes
         function generateCodes() {
-            console.log('Generating codes...');
             const container = document.getElementById('codeContainer');
-            container.innerHTML = '';
+            container.innerHTML = '';  // Clear previous codes
             for (let i = 0; i < codeCount; i++) {
-                // Create code in the format XXXXX-XXXXX-XXXXX-XXXXX-XXXXZ
-                const code = `${generateUniqueCode()}-${generateUniqueCode()}-${generateUniqueCode()}-${generateUniqueCode()}-${generateFinalCode()}`;
+                const code = generateSingleCode();
                 const codeBox = document.createElement('div');
                 codeBox.className = 'code-box';
                 codeBox.innerHTML = `
