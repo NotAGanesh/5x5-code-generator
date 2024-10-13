@@ -8,8 +8,10 @@ there are two method to grant codes i personally use python method but you can u
 - the code does not contain`A, E, I, O, U, L, S, 0, 1 and 5`.
 - the code ends with `Z` (i.g R9VGR-F8GWP-4V7NW-273B7-VTT6Z).
 - the code does not repeat same character once like this `XXXXX-XXXXX-XXTTT-XXXXX-XXXXX`
+- the generated code must be in capital letters
+ 
 
-Use this code <alt>↓</alt>
+Use this Python code or other language codes are in main branch of repo. <alt>↓</alt>
 ```
 import random
 
