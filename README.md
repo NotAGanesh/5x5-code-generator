@@ -6,7 +6,8 @@ there are two method to grant codes i personally use python method but you can u
 - the code is very similar from Microsoft Redeem codes.
 - the code generate 5x5 like this `XXXXX-XXXXX-XXXXX-XXXXX-XXXXX` total 25 digits.
 - the code does not contain`A, E, I, O, U, L, S, 0, 1 and 5`.
-- the code ends with `Z` (i.g R9VGR-F8GWP-4V7NW-273B7-VTT6Z)
+- the code ends with `Z` (i.g R9VGR-F8GWP-4V7NW-273B7-VTT6Z).
+- the code does not repeat same character once like this `XXXXX-XXXXX-XXTTT-XXXXX-XXXXX`
 
 Use this code <alt>↓</alt>
 ```
