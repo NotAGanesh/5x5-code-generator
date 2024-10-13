@@ -1,8 +1,8 @@
-### 5x5 Codes Generator
+### ⚡️ Simple and fast 5x5 Codes Generator
 there are two method to grant codes i personally use python method but you can use website or other computer language codes.
 - [Code Generator Website](https://notaganesh.github.io/5x5-code-generator/)
 
-### How the code works?
+### 🤔 How the code works?
 - the code is very similar from Microsoft Redeem codes.
 - the code generate 5x5 like this `XXXXX-XXXXX-XXXXX-XXXXX-XXXXX` total 25 digits.
 - the code does not contain`A, E, I, O, U, L, S, 0, 1 and 5`.
