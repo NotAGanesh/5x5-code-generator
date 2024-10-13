@@ -1,40 +1,56 @@
-use rand::seq::SliceRandom; // Make sure this is included
-use rand::thread_rng;
-use std::collections::HashSet;
+use rand::Rng;
 
 fn generate_code() -> Vec<String> {
-    let allowed_chars: Vec<char> = "2346789BCDFGHJKMNPQRTVWXYZ".chars().collect(); // Convert to Vec<char>
-    let mut codes: HashSet<String> = HashSet::new();
-    let mut rng = thread_rng();
+    let allowed_chars = "2346789BCDFGHJKMNPQRTVWXYZ";
+    let mut codes = Vec::new();
 
     while codes.len() < 25 {
-        // Generate the first four segments
-        let segments: Vec<String> = (0..4)
+        let mut code_parts = Vec::new();
+
+        // Generate the first four parts with 5 characters each
+        for _ in 0..4 {
+            let part: String = (0..5)
+                .map(|_| {
+                    let idx = rand::thread_rng().gen_range(0..allowed_chars.len());
+                    allowed_chars.chars().nth(idx).unwrap()
+                })
+                .collect();
+            code_parts.push(part);
+        }
+
+        // Generate the last part with 4 characters and append 'Z'
+        let last_part: String = (0..4)
             .map(|_| {
-                (0..5)
-                    .map(|_| allowed_chars.choose(&mut rng).expect("Failed to choose character")) // Ensure allowed_chars is a Vec<char>
-                    .collect::<String>()
+                let idx = rand::thread_rng().gen_range(0..allowed_chars.len());
+                allowed_chars.chars().nth(idx).unwrap()
             })
-            .collect();
+            .collect::<String>() + "Z";
 
-        // Generate the final segment
-        let final_segment: String = (0..4)
-            .map(|_| allowed_chars.choose(&mut rng).expect("Failed to choose character"))
-            .collect();
+        // Combine parts into a full code
+        let code = code_parts.join("-") + "-" + &last_part;
 
-        // Construct the full code
-        let code = format!("{}-{}-{}-{}-{}Z", 
-            segments[0], segments[1], segments[2], segments[3], final_segment);
+        // Check for three consecutive repeated characters
+        let mut valid = true;
+        for i in 0..(code.len() - 6) {
+            if &code[i..i + 3] == &code[i + 3..i + 6] {
+                valid = false;
+                break;
+            }
+        }
 
-        // Insert the generated code into the HashSet
-        codes.insert(code);
+        // If valid, add to the list of codes
+        if valid {
+            codes.push(code);
+        }
     }
 
-    codes.into_iter().collect()
+    codes
 }
 
 fn main() {
-    for code in generate_code() {
+    // Generate and print 25 codes
+    let codes = generate_code();
+    for code in codes {
         println!("{}", code);
     }
 }
