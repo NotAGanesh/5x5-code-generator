@@ -34,3 +34,5 @@ for code in generate_code():
 ```
   - (here are some compilers on web i.g) [Programiz Python Code Compiler](https://www.programiz.com/python-programming/online-compiler/)  
 
+> [!NOTE]  
+> The source code generated using **ChatGPT, Gemini**. mistakes can there. i'll improve the code in future!
