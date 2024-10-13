@@ -136,33 +136,38 @@
         const allowedChars = "2346789BCDFGHJKMNPQRTVWXYZ";
         const codeCount = 25;
 
+        // Function to check for three consecutive repeated characters in the code
+        function hasNoConsecutiveRepeats(code) {
+            for (let i = 0; i < code.length - 6; i++) {
+                if (code.slice(i, i + 3) === code.slice(i + 3, i + 6)) {
+                    return false;
+                }
+            }
+            return true;
+        }
+
         // Function to generate a single code
         function generateSingleCode() {
-            let parts = [];
+            let code = '';
+            while (true) {
+                // Generate first 4 parts (XXXXX-XXXXX-XXXXX-XXXXX)
+                let parts = Array.from({ length: 4 }, () =>
+                    Array.from({ length: 5 }, () => allowedChars[Math.floor(Math.random() * allowedChars.length)]).join('')
+                );
 
-            // Generate the first 4 parts (XXXXX)
-            for (let i = 0; i < 4; i++) {
-                let part = '';
-                while (part.length < 5) {
-                    const char = allowedChars.charAt(Math.floor(Math.random() * allowedChars.length));
-                    if (!part.includes(char)) {  // Ensure no repeated characters in a part
-                        part += char;
-                    }
-                }
-                parts.push(part);
-            }
+                // Generate the last part (XXXXZ)
+                let lastPart = Array.from({ length: 4 }, () =>
+                    allowedChars[Math.floor(Math.random() * allowedChars.length)]
+                ).join('') + 'Z';
 
-            // Generate the last part (XXXXZ)
-            let lastPart = '';
-            while (lastPart.length < 4) {
-                const char = allowedChars.charAt(Math.floor(Math.random() * allowedChars.length));
-                if (!lastPart.includes(char)) {
-                    lastPart += char;
+                code = parts.join('-') + '-' + lastPart;
+
+                // Check if code passes the consecutive repeat check
+                if (hasNoConsecutiveRepeats(code)) {
+                    break;
                 }
             }
-            lastPart += 'Z';  // Append 'Z' at the end of the last part
-
-            return parts.join('-') + '-' + lastPart;
+            return code;
         }
 
         // Function to generate multiple codes
