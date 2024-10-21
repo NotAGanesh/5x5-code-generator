@@ -2,13 +2,15 @@
 there are two method to grant codes i personally use python method but you can use website or other computer language codes.
 - [Code Generator Website](https://notaganesh.github.io/5x5-code-generator/)
 
-### 🤔 How the code works?
-- the code is very similar from Microsoft Redeem codes/Minecraft Redeem.
-- the code generate 5x5 like this `XXXXX-XXXXX-XXXXX-XXXXX-XXXXX` total 25 digits.
-- the code does not contain`A, E, I, O, U, L, S, 0, 1 and 5`.
-- the code ends with `Z` (i.g R9VGR-F8GWP-4V7NW-273B7-VTT6Z).
-- the code does rarely repeat same character once like this `XXXXX-XXXXX-XXTTT-XXXXX-XXXXX`
-- the generated code must be in capital letters
+### 🤔 How Does the Code Work?
+
+- The code generates a pattern similar to Microsoft or Minecraft redeem codes.
+- Format: `XXXXX-XXXXX-XXXXX-XXXXX-XXXXX` (5 groups of 5 characters / 5x5 digits).
+- The code excludes: `A, E, I, O, U, L, S, 0, 1, and 5`.
+- It always ends with `Z` (e.g., `R9VGR-F8GWP-4V7NW-273B7-VTT6Z`).
+- Rarely, the same character may repeat consecutively, like `XXXXX-XXXXX-XXTTT-XXXXX-XXXXX`.
+- The generated code consists entirely of uppercase letters.
+
  
 
 Use this Python code or other language codes are in main branch of repo. <alt>↓</alt>
