@@ -10,7 +10,7 @@
 - Font has been changed to **Poppins**
 - Rework on theme toggle button
   - Added OLED Theme 
-- Renamed **MCE Style Cape By @Rddff123** with **MCE Style**
+- Renamed **MCE Style Cape By @Rddff123** with **Minecraft Experience Cape Style**
 
 
 ### Site Removed things
