@@ -6,7 +6,7 @@
     <title>5x5 Code Generator</title>
     <link href="https://fonts.googleapis.com/css2?family=Afacad&display=swap" rel="stylesheet">
     <style>
-        body {
+  body {
             font-family: 'Afacad', sans-serif;
             display: flex;
             flex-direction: column;
@@ -120,12 +120,18 @@
 </head>
 <body>
     <h1>5x5 Codes Generator (Educational Purpose Only)</h1>
-    <button class="generate-btn" onclick="generateCodes()">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
-            <path d="M12 2a10 10 0 100 20 10 10 0 000-20zm1 14.93V17a1 1 0 11-2 0v-2.07a8.001 8.001 0 01-3.95-1.57 1 1 0 111.1-1.66 6.001 6.001 0 005.7 0 1 1 0 111.1 1.66A8.001 8.001 0 0113 16.93zM7.05 9.05a1 1 0 011.41 0 6.001 6.001 0 005.08 0 1 1 0 111.41 1.41 8.001 8.001 0 01-7.9 0 1 1 0 010-1.41zM12 4a1 1 0 110 2 1 1 0 010-2z"/>
-        </svg>
-        Generate Codes
-    </button>
+    
+    <!-- Options for selecting code type -->
+    <div>
+        <label>
+            <input type="radio" name="codeType" value="5x5" checked onclick="generateCodes()"> 5x5 Format
+        </label>
+        <label>
+            <input type="radio" name="codeType" value="mce" onclick="generateCodes()"> MCE Style Cape By @Rddff123
+        </label>
+    </div>
+    
+    <button class="generate-btn" onclick="generateCodes()">Generate Codes</button>
     <label class="theme-switch">
         <input type="checkbox" onclick="toggleTheme()">
         <span class="slider"></span>
@@ -136,7 +142,6 @@
         const allowedChars = "2346789BCDFGHJKMNPQRTVWXYZ";
         const codeCount = 25;
 
-        // Function to check for three consecutive repeated characters in the code
         function hasNoConsecutiveRepeats(code) {
             for (let i = 0; i < code.length - 6; i++) {
                 if (code.slice(i, i + 3) === code.slice(i + 3, i + 6)) {
@@ -146,23 +151,19 @@
             return true;
         }
 
-        // Function to generate a single code
-        function generateSingleCode() {
+        function generate5x5Code() {
             let code = '';
             while (true) {
-                // Generate first 4 parts (XXXXX-XXXXX-XXXXX-XXXXX)
                 let parts = Array.from({ length: 4 }, () =>
                     Array.from({ length: 5 }, () => allowedChars[Math.floor(Math.random() * allowedChars.length)]).join('')
                 );
 
-                // Generate the last part (XXXXZ)
                 let lastPart = Array.from({ length: 4 }, () =>
                     allowedChars[Math.floor(Math.random() * allowedChars.length)]
                 ).join('') + 'Z';
 
                 code = parts.join('-') + '-' + lastPart;
 
-                // Check if code passes the consecutive repeat check
                 if (hasNoConsecutiveRepeats(code)) {
                     break;
                 }
@@ -170,22 +171,40 @@
             return code;
         }
 
-        // Function to generate multiple codes
+        function generateMCECode() {
+            let code = '';
+            while (true) {
+                code = "2" + 
+                    Array.from({ length: 4 }, () => allowedChars[Math.floor(Math.random() * allowedChars.length)]).join('') +
+                    "-" +
+                    Array.from({ length: 3 }, () =>
+                        Array.from({ length: 5 }, () => allowedChars[Math.floor(Math.random() * allowedChars.length)]).join('')
+                    ).join('-') +
+                    "-" +
+                    Array.from({ length: 4 }, () => allowedChars[Math.floor(Math.random() * allowedChars.length)]).join('') + 
+                    "Z";
+
+                if (hasNoConsecutiveRepeats(code)) {
+                    break;
+                }
+            }
+            return code;
+        }
+
         function generateCodes() {
             const container = document.getElementById('codeContainer');
-            container.innerHTML = '';  // Clear previous codes
+            container.innerHTML = '';
+            
+            const selectedType = document.querySelector('input[name="codeType"]:checked').value;
+            const generateCode = selectedType === 'mce' ? generateMCECode : generate5x5Code;
+            
             for (let i = 0; i < codeCount; i++) {
-                const code = generateSingleCode();
+                const code = generateCode();
                 const codeBox = document.createElement('div');
                 codeBox.className = 'code-box';
                 codeBox.innerHTML = `
                     <div class="code">${code}</div>
-                    <button class="copy-btn" onclick="copyToClipboard('${code}')">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
-                            <path d="M19 2H9c-1.1 0-2 .9-2 2v14H5c-1.1 0-2 .9-2 2v2h14v-2c0-1.1-.9-2-2-2h-2V4h10v14h-2v2h4v-2c0-1.1-.9-2-2-2h-2V4c0-1.1-.9-2-2-2zm-4 16H7v-2h8v2zm0-4H7v-2h8v2zm0-4H7V8h8v2z"/>
-                        </svg>
-                        Copy
-                    </button>
+                    <button class="copy-btn" onclick="copyToClipboard('${code}')">Copy</button>
                 `;
                 container.appendChild(codeBox);
             }
@@ -201,7 +220,6 @@
             document.body.classList.toggle('dark-mode');
         }
 
-        // Initial code generation
         document.addEventListener('DOMContentLoaded', generateCodes);
     </script>
 </body>
