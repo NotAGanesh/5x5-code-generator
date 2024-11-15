@@ -1,4 +1,4 @@
-## v1.3
+## v1.3 - UI/UX Update
 ### Site Fixes
 - Fixed a issue reproduces when site will open on phone
 - Fixed broken grid of the site
