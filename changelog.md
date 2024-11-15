@@ -5,6 +5,7 @@
 - Fixed broken alignment
 
 ### Site UI Changes
+- Added new clipboard box on bottom right
 - Renamed `MCE Style Cape By @Rddff123` with `MCE Style`
 - Rework on glassmorphism effect
 
