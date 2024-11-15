@@ -1,155 +1,30 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>5x5 Code Generator</title>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
     <style>
-        :root {
-            --vibrant-blue: #0074E4;
-        }
-
-        body {
-            font-family: 'Montserrat', sans-serif;
-            margin: 0;
-            padding: 0;
-            background: linear-gradient(135deg, #e0e0e0, #f7f9fc);
-            color: #333;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            padding: 20px;
-            box-sizing: border-box;
-            transition: background-color 0.3s, color 0.3s;
-        }
-
-        body.dark-mode {
-            background: linear-gradient(135deg, #2c2c2c, #121212);
-            color: #fff;
-        }
-
-        body.oled-mode {
-            background: #000;
-            color: #fff;
-        }
-
-        h1 {
-            font-size: 1.8em;
-            margin-bottom: 15px;
-            text-align: center;
-            color: var(--vibrant-blue);
-        }
-
-        .glass-container {
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(10px);
-            border-radius: 15px;
-            padding: 20px;
-            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
-            width: 100%;
-            max-width: 800px;
-        }
-
-        .theme-selector {
-            margin-bottom: 20px;
-            display: flex;
-            gap: 10px;
-            align-items: center;
-            justify-content: center;
-            background: rgba(255, 255, 255, 0.2);
-            backdrop-filter: blur(10px);
-            border-radius: 10px;
-            padding: 10px 20px;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-        }
-
-        .theme-selector select {
-            padding: 5px 10px;
-            font-size: 1em;
-            border: none;
-            border-radius: 8px;
-            background: var(--vibrant-blue);
-            color: #fff;
-            transition: background 0.3s, color 0.3s;
-        }
-
-        .generate-btn {
-            padding: 10px 20px;
-            font-size: 1em;
-            border: none;
-            border-radius: 10px;
-            background: var(--vibrant-blue);
-            color: white;
-            cursor: pointer;
-            margin-bottom: 20px;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-            transition: background 0.3s;
-        }
-
-        .generate-btn:hover {
-            background: #0058b8;
-        }
-
-        .container {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 15px;
-            width: 100%;
-            max-width: 800px;
-        }
-
-        .code-box {
-            padding: 15px;
-            background: rgba(255, 255, 255, 0.2);
-            backdrop-filter: blur(10px);
-            border-radius: 10px;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-            text-align: center;
-            transition: background 0.3s, box-shadow 0.3s;
-        }
-
-        .code {
-            font-size: 1em;
-            margin-bottom: 10px;
-            font-weight: bold;
-            word-break: break-word;
-        }
-
-        .copy-btn {
-            padding: 8px 16px;
-            font-size: 0.9em;
-            border: none;
-            background: var(--vibrant-blue);
-            color: white;
-            border-radius: 8px;
-            cursor: pointer;
-            transition: background 0.3s;
-        }
-
-        .copy-btn:hover {
-            background: #0058b8;
-        }
-        
-        @media (max-width: 600px) {
-            body {
-                padding: 10px;
-            }
-            h1 {
-                font-size: 1.5em;
-            }
-            .generate-btn {
-                width: 100%;
-            }
-            .code-box {
-                font-size: 0.9em;
-            }
-        }
+        :root {--vibrant-blue: #0074E4;}
+        body {font-family: 'Montserrat', sans-serif; margin: 0; padding: 0; background: linear-gradient(135deg, #e0e0e0, #f7f9fc); color: #333; display: flex; flex-direction: column; align-items: center; padding: 20px; box-sizing: border-box; transition: background-color 0.3s, color 0.3s;}
+        body.dark-mode {background: linear-gradient(135deg, #2c2c2c, #121212); color: #fff;}
+        body.oled-mode {background: #000; color: #fff;}
+        h1 {font-size: 1.8em; margin-bottom: 15px; text-align: center; color: var(--vibrant-blue);}
+        .glass-container {background: rgba(255, 255, 255, 0.1); backdrop-filter: blur(10px); border-radius: 15px; padding: 20px; box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1); width: 100%; max-width: 800px;}
+        .theme-selector {margin-bottom: 20px; display: flex; gap: 10px; align-items: center; justify-content: center; background: rgba(255, 255, 255, 0.2); backdrop-filter: blur(10px); border-radius: 10px; padding: 10px 20px; box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);}
+        .theme-selector select {padding: 5px 10px; font-size: 1em; border: none; border-radius: 8px; background: var(--vibrant-blue); color: #fff; transition: background 0.3s, color 0.3s;}
+        .generate-btn {padding: 10px 20px; font-size: 1em; border: none; border-radius: 10px; background: var(--vibrant-blue); color: white; cursor: pointer; margin-bottom: 20px; box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); transition: background 0.3s;}
+        .generate-btn:hover {background: #0058b8;}
+        .container {display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; width: 100%; max-width: 800px;}
+        .code-box {padding: 15px; background: rgba(255, 255, 255, 0.2); backdrop-filter: blur(10px); border-radius: 10px; box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); text-align: center; transition: background 0.3s, box-shadow 0.3s;}
+        .code {font-size: 1em; margin-bottom: 10px; font-weight: bold; word-break: break-word;}
+        .copy-btn {padding: 8px 16px; font-size: 0.9em; border: none; background: var(--vibrant-blue); color: white; border-radius: 8px; cursor: pointer; transition: background 0.3s;}
+        .copy-btn:hover {background: #0058b8;}
+        @media (max-width: 600px) {body {padding: 10px;} h1 {font-size: 1.5em;} .generate-btn {width: 100%;} .code-box {font-size: 0.9em;}}
     </style>
 </head>
 <body>
     <h1>5x5 Code Generator</h1>
-
     <div class="glass-container">
         <div class="theme-selector">
             <label for="theme">Theme:</label>
@@ -159,118 +34,62 @@
                 <option value="oled">OLED</option>
             </select>
         </div>
-
         <div class="options-container">
-            <label>
-                <input type="radio" name="codeType" value="5x5" checked onclick="generateCodes()"> 5x5 Format
-            </label>
-            <label>
-                <input type="radio" name="codeType" value="mce" onclick="generateCodes()"> MCE Style
-            </label>
+            <label><input type="radio" name="codeType" value="5x5" checked onclick="generateCodes()"> 5x5 Format</label>
+            <label><input type="radio" name="codeType" value="mce" onclick="generateCodes()"> MCE Style</label>
         </div>
-
         <button class="generate-btn" onclick="generateCodes()">Generate Codes</button>
         <div class="container" id="codeContainer"></div>
     </div>
-
     <script>
-             const allowedChars = "2346789BCDFGHJKMNPQRTVWXYZ";
-        const codeCount = 25;
-
-        function hasNoConsecutiveRepeats(code) {
-            for (let i = 0; i < code.length - 6; i++) {
-                if (code.slice(i, i + 3) === code.slice(i + 3, i + 6)) {
-                    return false;
-                }
-            }
-            return true;
-        }
-
+        const allowedChars = "2346789BCDFGHJKMNPQRTVWXYZ", codeCount = 25;
+        function hasNoConsecutiveRepeats(code) {for (let i = 0; i < code.length - 6; i++) {if (code.slice(i, i + 3) === code.slice(i + 3, i + 6)) return false;} return true;}
         function generate5x5Code() {
-            let code = '';
+            let code = ''; 
             while (true) {
-                let parts = Array.from({ length: 4 }, () =>
-                    Array.from({ length: 5 }, () => allowedChars[Math.floor(Math.random() * allowedChars.length)]).join('')
-                );
-
-                let lastPart = Array.from({ length: 4 }, () =>
-                    allowedChars[Math.floor(Math.random() * allowedChars.length)]
-                ).join('') + 'Z';
-
+                let parts = Array.from({ length: 4 }, () => Array.from({ length: 5 }, () => allowedChars[Math.floor(Math.random() * allowedChars.length)]).join(''));
+                let lastPart = Array.from({ length: 4 }, () => allowedChars[Math.floor(Math.random() * allowedChars.length)]).join('') + 'Z';
                 code = parts.join('-') + '-' + lastPart;
-
-                if (hasNoConsecutiveRepeats(code)) {
-                    break;
-                }
+                if (hasNoConsecutiveRepeats(code)) break;
             }
             return code;
         }
-
         function generateMCECode() {
-            let code = '';
+            let code = ''; 
             while (true) {
-                code = "2" + 
-                    Array.from({ length: 4 }, () => allowedChars[Math.floor(Math.random() * allowedChars.length)]).join('') +
-                    "-" +
-                    Array.from({ length: 3 }, () =>
-                        Array.from({ length: 5 }, () => allowedChars[Math.floor(Math.random() * allowedChars.length)]).join('')
-                    ).join('-') +
-                    "-" +
-                    Array.from({ length: 4 }, () => allowedChars[Math.floor(Math.random() * allowedChars.length)]).join('') + 
-                    "Z";
-
-                if (hasNoConsecutiveRepeats(code)) {
-                    break;
-                }
+                code = "2" + Array.from({ length: 4 }, () => allowedChars[Math.floor(Math.random() * allowedChars.length)]).join('') + "-" + Array.from({ length: 3 }, () => Array.from({ length: 5 }, () => allowedChars[Math.floor(Math.random() * allowedChars.length)]).join('')).join('-') + "-" + Array.from({ length: 4 }, () => allowedChars[Math.floor(Math.random() * allowedChars.length)]).join('') + "Z";
+                if (hasNoConsecutiveRepeats(code)) break;
             }
             return code;
         }
-
         function generateCodes() {
             const container = document.getElementById('codeContainer');
             container.innerHTML = '';
-            
             const selectedType = document.querySelector('input[name="codeType"]:checked').value;
             const generateCode = selectedType === 'mce' ? generateMCECode : generate5x5Code;
-            
             for (let i = 0; i < codeCount; i++) {
                 const code = generateCode();
                 const codeBox = document.createElement('div');
                 codeBox.className = 'code-box';
-                codeBox.innerHTML = ` 
-                    <div class="code">${code}</div>
-                    <button class="copy-btn" onclick="copyToClipboard('${code}')">Copy</button>
-                `;
+                codeBox.innerHTML = `<div class="code">${code}</div><button class="copy-btn" onclick="copyToClipboard('${code}')">Copy</button>`;
                 container.appendChild(codeBox);
             }
         }
-
         function copyToClipboard(code) {
             navigator.clipboard.writeText(code).then(() => {
                 const status = document.createElement('div');
                 status.textContent = 'Copied!';
-                status.style.position = 'fixed';
-                status.style.bottom = '10px';
-                status.style.right = '10px';
-                status.style.background = '#007bff';
-                status.style.color = 'white';
-                status.style.padding = '10px';
-                status.style.borderRadius = '5px';
-                status.style.zIndex = '1000';
+                status.style.position = 'fixed'; status.style.bottom = '10px'; status.style.right = '10px'; status.style.background = '#007bff';
+                status.style.color = 'white'; status.style.padding = '10px'; status.style.borderRadius = '5px'; status.style.zIndex = '1000';
                 document.body.appendChild(status);
                 setTimeout(() => status.remove(), 2000);
             });
         }
-
         function changeTheme(theme) {
             document.body.className = '';
-            if (theme === 'dark') {
-                document.body.classList.add('dark-mode');
-            } else if (theme === 'oled') {
-                document.body.classList.add('oled-mode');
-            }
+            if (theme === 'dark') document.body.classList.add('dark-mode');
+            else if (theme === 'oled') document.body.classList.add('oled-mode');
         }
-
         document.addEventListener('DOMContentLoaded', generateCodes);
     </script>
 </body>
