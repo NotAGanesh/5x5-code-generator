@@ -16,3 +16,5 @@
 ### Site Removed things
 - Removed **Educational Purpose Only** sign on top
 
+### Site Logic
+- Code Generator Source Code has been Compressed
