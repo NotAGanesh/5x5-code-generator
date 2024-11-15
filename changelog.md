@@ -7,7 +7,7 @@
 ### Site UI Changes
 - Rework on glassmorphism effect
 - Added new clipboard box on bottom right
-- Font has been changed to **Montserrat**
+- Font has been changed to **Poppins**
 - Rework on theme toggle button
   - Added Oled Theme 
 - Renamed **MCE Style Cape By @Rddff123** with **MCE Style**
