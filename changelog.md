@@ -5,10 +5,12 @@
 - Fixed broken alignment
 
 ### Site UI Changes
+- Rework on glassmorphism effect
 - Added new clipboard box on bottom right
 - Rework on theme toggle button
+  - Added Oled Theme 
 - Renamed `MCE Style Cape By @Rddff123` with `MCE Style`
-- Rework on glassmorphism effect
+
 
 ### Site Removed things
 - Removed `Educational Purpose Only` sign on top
