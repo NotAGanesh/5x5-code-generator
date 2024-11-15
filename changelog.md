@@ -9,7 +9,7 @@
 - Added new clipboard box on bottom right
 - Font has been changed to **Poppins**
 - Rework on theme toggle button
-  - Added Oled Theme 
+  - Added OLED Theme 
 - Renamed **MCE Style Cape By @Rddff123** with **MCE Style**
 
 
