@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>5x5 Code Generator</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap" rel="stylesheet">
     <style>
@@ -11,7 +12,7 @@
         body.oled-mode {background: #000; color: #fff;}
         h1 {font-size: 1.8em; margin-bottom: 15px; text-align: center; color: var(--vibrant-blue);}
         .glass-container {background: rgba(255, 255, 255, 0.1); backdrop-filter: blur(10px); border-radius: 15px; padding: 20px; box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1); width: 100%; max-width: 800px;}
-        .theme-selector {margin-bottom: 20px; display: flex; gap: 10px; align-items: center; justify-content: center; background: rgba(255, 255, 255, 0.2); backdrop-filter: blur(10px); border-radius: 10px; padding: 10px 20px; box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);}
+        .theme-selector, .options-container {margin-bottom: 20px; display: flex; gap: 10px; align-items: center; justify-content: center; background: rgba(255, 255, 255, 0.2); backdrop-filter: blur(10px); border-radius: 10px; padding: 10px 20px; box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);}
         .theme-selector select {padding: 5px 10px; font-size: 1em; border: none; border-radius: 8px; background: var(--vibrant-blue); color: #fff; transition: background 0.3s, color 0.3s;}
         .generate-btn {padding: 10px 20px; font-size: 1em; border: none; border-radius: 10px; background: var(--vibrant-blue); color: white; cursor: pointer; margin-bottom: 20px; box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); transition: background 0.3s;}
         .generate-btn:hover {background: #0058b8;}
@@ -37,36 +38,22 @@
         <div class="options-container">
             <label><input type="radio" name="codeType" value="5x5" checked onclick="generateCodes()"> 5x5 Format</label>
             <label><input type="radio" name="codeType" value="mce" onclick="generateCodes()"> Minecraft Experience Cape Style</label>
+            <label><input type="radio" name="codeType" value="tiktok" onclick="generateCodes()"> TikTok Cape Code</label>
         </div>
         <button class="generate-btn" onclick="generateCodes()">Generate Codes</button>
         <div class="container" id="codeContainer"></div>
     </div>
     <script>
         const allowedChars = "2346789BCDFGHJKMNPQRTVWXYZ", codeCount = 25;
-        function hasNoConsecutiveRepeats(code) {for (let i = 0; i < code.length - 6; i++) {if (code.slice(i, i + 3) === code.slice(i + 3, i + 6)) return false;} return true;}
-        function generate5x5Code() {
-            let code = ''; 
-            while (true) {
-                let parts = Array.from({ length: 4 }, () => Array.from({ length: 5 }, () => allowedChars[Math.floor(Math.random() * allowedChars.length)]).join(''));
-                let lastPart = Array.from({ length: 4 }, () => allowedChars[Math.floor(Math.random() * allowedChars.length)]).join('') + 'Z';
-                code = parts.join('-') + '-' + lastPart;
-                if (hasNoConsecutiveRepeats(code)) break;
-            }
-            return code;
-        }
-        function generateMCECode() {
-            let code = ''; 
-            while (true) {
-                code = "2" + Array.from({ length: 4 }, () => allowedChars[Math.floor(Math.random() * allowedChars.length)]).join('') + "-" + Array.from({ length: 3 }, () => Array.from({ length: 5 }, () => allowedChars[Math.floor(Math.random() * allowedChars.length)]).join('')).join('-') + "-" + Array.from({ length: 4 }, () => allowedChars[Math.floor(Math.random() * allowedChars.length)]).join('') + "Z";
-                if (hasNoConsecutiveRepeats(code)) break;
-            }
-            return code;
+        function generateTikTokCode() {
+            let parts = Array.from({ length: 5 }, () => Array.from({ length: 5 }, () => allowedChars[Math.floor(Math.random() * allowedChars.length)]).join(''));
+            return '2' + parts[0].slice(1) + '-' + parts.slice(1, 4).join('-') + '-' + parts[4].slice(0, 4) + 'Z';
         }
         function generateCodes() {
             const container = document.getElementById('codeContainer');
             container.innerHTML = '';
             const selectedType = document.querySelector('input[name="codeType"]:checked').value;
-            const generateCode = selectedType === 'mce' ? generateMCECode : generate5x5Code;
+            const generateCode = selectedType === 'mce' ? generateMCECode : selectedType === 'tiktok' ? generateTikTokCode : generate5x5Code;
             for (let i = 0; i < codeCount; i++) {
                 const code = generateCode();
                 const codeBox = document.createElement('div');
@@ -75,22 +62,6 @@
                 container.appendChild(codeBox);
             }
         }
-        function copyToClipboard(code) {
-            navigator.clipboard.writeText(code).then(() => {
-                const status = document.createElement('div');
-                status.textContent = 'Copied!';
-                status.style.position = 'fixed'; status.style.bottom = '10px'; status.style.right = '10px'; status.style.background = '#007bff';
-                status.style.color = 'white'; status.style.padding = '10px'; status.style.borderRadius = '5px'; status.style.zIndex = '1000';
-                document.body.appendChild(status);
-                setTimeout(() => status.remove(), 2000);
-            });
-        }
-        function changeTheme(theme) {
-            document.body.className = '';
-            if (theme === 'dark') document.body.classList.add('dark-mode');
-            else if (theme === 'oled') document.body.classList.add('oled-mode');
-        }
-        document.addEventListener('DOMContentLoaded', generateCodes);
     </script>
 </body>
 </html>
